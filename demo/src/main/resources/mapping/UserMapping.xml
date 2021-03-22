@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dy.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.dy.entity.User">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="user" jdbcType="CHAR" property="user" />
+        <result column="password" jdbcType="CHAR" property="password" />
+        <result column="email" jdbcType="CHAR" property="email" />
+        <result column="date" jdbcType="CHAR" property="date" />
+    </resultMap>
+    <!--    全查-->
+    <select id="queryAll" resultType="com.dy.entity.User">
+        select * from user
+    </select>
+<!--    根据id 查询信息-->
+    <select id="queryById" resultType="com.dy.entity.User">
+        select * from user where id = #{id}
+    </select>
+<!--    查询用户名是否重复-->
+    <select id="queryByUser" resultType="com.dy.entity.User">
+        select * from user where user = #{user}
+    </select>
+<!--    查询用户名邮箱是否正确-->
+    <select id="UserIsPwd" resultType="com.dy.entity.User">
+        select * from user where user = #{user} and email = #{email}
+    </select>
+<!--    登录-->
+    <select id="login" resultType="com.dy.entity.User">
+        select * from user where user = #{user} and password = #{password}
+    </select>
+<!--    注册-->
+    <insert id="register" parameterType="com.dy.entity.User">
+        insert into user values(id,#{user},#{password},#{email},#{date})
+    </insert>
+<!--修改密码-->
+    <update id="updatePwd" parameterType="com.dy.entity.User">
+        update user set password = #{password} where user = #{user}
+    </update>
+
+<!--    删除-->
+    <delete id="del" parameterType="com.dy.entity.User">
+        delete from user where id = #{id}
+    </delete>
+
+<!--    修改User-->
+    <update id="updateUser" parameterType="com.dy.entity.User">
+        update user set user = #{user}, password = #{password}, email = #{email} where id = #{id}
+    </update>
+<!--    通过id查询user-->
+    <select id="queryIdByUser" resultType="com.dy.entity.User">
+        select * from user where id = #{id}
+    </select>
+</mapper>
